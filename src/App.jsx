@@ -1,15 +1,12 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import InicioSesion from './Pages/Autenticacion/InicioSesion'
-import RecuperarPassword from './Pages/Autenticacion/RecuperarPassword'
+import ConfigurationRoutes from './Route/ConfigurationRoutes'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <RecuperarPassword></RecuperarPassword>
+      <ConfigurationRoutes></ConfigurationRoutes>
     </>
   )
 }
