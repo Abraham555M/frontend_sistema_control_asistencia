@@ -2,8 +2,8 @@ import React from 'react'
 
 const Empleados = () => {
   return (
-    <div>
-      
+    <div className='border'>
+      <h1>hoal</h1>
     </div>
   )
 }

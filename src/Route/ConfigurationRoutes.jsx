@@ -4,6 +4,7 @@ import RecuperarPassword from "../Pages/Autenticacion/RecuperarPassword";
 import Empleados from "../Pages/Empleados/Empleados";
 import Horario from "../Pages/Horario/Horario";
 import LayoutConNavbar from "../Route/LayoutConNavbar";
+import Asistencia from "../Pages/Asistencia/Asistencia";
 
 
 const ConfigurationRoutes = () => {
@@ -15,6 +16,7 @@ const ConfigurationRoutes = () => {
 
       {/* Rutas con navbar */}
       <Route element={<LayoutConNavbar />}>
+       <Route path="/asistencia" element={<Asistencia />} />
         <Route path="/empleados" element={<Empleados />} />
         <Route path="/horarios" element={<Horario />} />
       </Route>

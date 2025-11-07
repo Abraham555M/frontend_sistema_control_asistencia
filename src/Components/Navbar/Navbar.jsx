@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaUser } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -19,6 +19,21 @@ const Navbar = () => {
 
         {/* Navegación */}
         <ul className="flex flex-col gap-3">
+          <li>
+            <NavLink
+              to="/asistencia"
+              className={({ isActive }) =>
+                `block rounded-md px-4 py-3 text-center font-semibold transition ${
+                  isActive
+                    ? "bg-white text-purple-700"
+                    : "hover:bg-purple-600 hover:text-gray-200"
+                }`
+              }
+            >
+              Asistencia
+            </NavLink>
+          </li>
+
           <li>
             <NavLink
               to="/empleados"
@@ -80,9 +95,9 @@ const Navbar = () => {
           </div>
         </header>
 
-        {/* Aquí va el contenido renderizado */}
+       {/* Aquí va el contenido renderizado */}
         <main className="flex-1 bg-gray-100 p-6">
-          {/* <Outlet />  si usas layouts */}
+          <Outlet />
         </main>
       </div>
     </div>
