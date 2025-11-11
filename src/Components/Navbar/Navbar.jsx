@@ -6,6 +6,8 @@ import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 const Navbar = () => {
   const [openEmpleados, setOpenEmpleados] = useState(false);
   const [openHorarios, setOpenHorarios] = useState(false);
+  const [openPermisos, setOpenPermisos] = useState(false);
+  const [openAdministrador, setOpenAdministrador] = useState(false);
 
   return (
     <div className="flex min-h-screen">
@@ -130,6 +132,117 @@ const Navbar = () => {
                     }
                   >
                     Crear Horario
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          <li>
+            <button
+              onClick={() => setOpenPermisos(!openPermisos)}
+              className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
+            >
+              Permisos
+              {openPermisos ? (
+                <IoChevronUpOutline className="text-lg" />
+              ) : (
+                <IoChevronDownOutline className="text-lg" />
+              )}
+            </button>
+
+            {openPermisos && (
+              <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
+                <li>
+                  <NavLink
+                    to="/permisos/lista-permisos"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Ver Permisos
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/permisos/crear-permisos"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Crear Permisos
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          <li>
+            <button
+              onClick={() => setOpenAdministrador(!openAdministrador)}
+              className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
+            >
+              Administrador
+              {openAdministrador ? (
+                <IoChevronUpOutline className="text-lg" />
+              ) : (
+                <IoChevronDownOutline className="text-lg" />
+              )}
+            </button>
+
+            {openAdministrador && (
+              <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
+                <li>
+                  <NavLink
+                    to="/administrador/generos"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Genero 
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/administrador/tipo-permisos"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Tipo Permiso
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/administrador/tipo-usuarios"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Tipo Usuarios
                   </NavLink>
                 </li>
               </ul>

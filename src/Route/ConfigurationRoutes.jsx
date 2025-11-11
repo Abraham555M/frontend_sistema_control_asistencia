@@ -9,6 +9,9 @@ import ListarHorario from "../Pages/Horario/ListarHorario";
 import ListarEmpleados from "../Pages/Empleados/ListarEmpleados";
 import ListarPermisos from "../Pages/Permisos/ListarPermisos";
 import Permisos from "../Pages/Permisos/Permisos";
+import TipoUsuario from "../Pages/Administrador/TipoUsuario/TipoUsuario";
+import TipoPermiso from "../Pages/Administrador/TipoPermiso/TipoPermiso";
+import Genero from "../Pages/Administrador/Genero/Genero";
 
 const ConfigurationRoutes = () => {
   return (
@@ -26,19 +29,25 @@ const ConfigurationRoutes = () => {
         />
 
         {/* Rutas anidadas */}
-        <Route path="horarios">
-          <Route path="lista-horarios" element={<ListarHorario />} />
-          <Route path="crear-horarios" element={<Horario />} />
-        </Route>
-
-         <Route path="empleados">
+        <Route path="empleados">
           <Route path="lista-empleados" element={<ListarEmpleados />} />
           <Route path="crear-empleados" element={<Empleados />} />
         </Route>
 
+        <Route path="horarios">
+          <Route path="lista-horarios" element={<ListarHorario />} />
+          <Route path="crear-horarios" element={<Horario />} />
+        </Route>         
+
          <Route path="permisos">
           <Route path="lista-permisos" element={<ListarPermisos />} />
           <Route path="crear-permisos" element={<Permisos />} />
+        </Route>
+
+        <Route path="administrador">
+          <Route path="generos" element={<Genero />} />
+          <Route path="tipo-permisos" element={<TipoPermiso />} />
+          <Route path="tipo-usuarios" element={<TipoUsuario />} />
         </Route>
       </Route>
 
