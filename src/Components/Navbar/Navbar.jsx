@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <nav className="bg-purple-700 flex flex-col w-64 p-6 text-white">
+      <nav className="bg-purple-700 flex flex-col w-64 p-6 text-white h-screen">
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">
           <img
@@ -64,7 +64,7 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          <li className='mt-120'>
+          <li className='mt-100'>
             <NavLink
               to="/empleados"
               className={({ isActive }) =>
