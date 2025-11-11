@@ -1,8 +1,12 @@
-import React from 'react'
-import { FaUser } from 'react-icons/fa';
-import { NavLink, Outlet } from 'react-router-dom';
+import React, { useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { NavLink, Outlet } from "react-router-dom";
+import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 
 const Navbar = () => {
+  const [openEmpleados, setOpenEmpleados] = useState(false);
+  const [openHorarios, setOpenHorarios] = useState(false);
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
@@ -18,7 +22,7 @@ const Navbar = () => {
         </div>
 
         {/* Navegación */}
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-2">
           <li>
             <NavLink
               to="/asistencia"
@@ -34,39 +38,108 @@ const Navbar = () => {
             </NavLink>
           </li>
 
+          {/* 🔹 Empleados con submenú */}
           <li>
-            <NavLink
-              to="/empleados"
-              className={({ isActive }) =>
-                `block rounded-md px-4 py-3 text-center font-semibold transition ${
-                  isActive
-                    ? "bg-white text-purple-700"
-                    : "hover:bg-purple-600 hover:text-gray-200"
-                }`
-              }
+            <button
+              onClick={() => setOpenEmpleados(!openEmpleados)}
+              className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
             >
               Empleados
-            </NavLink>
+              {openEmpleados ? (
+                <IoChevronUpOutline className="text-lg" />
+              ) : (
+                <IoChevronDownOutline className="text-lg" />
+              )}
+            </button>
+
+            {openEmpleados && (
+              <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
+                <li>
+                  <NavLink
+                    to="/empleados/lista-empleados"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Ver Empleados
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/empleados/crear-empleados"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Crear Empleados
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </li>
 
+          {/* 🔹 Horarios con submenú */}
           <li>
-            <NavLink
-              to="/horarios"
-              className={({ isActive }) =>
-                `block rounded-md px-4 py-3 text-center font-semibold transition ${
-                  isActive
-                    ? "bg-white text-purple-700"
-                    : "hover:bg-purple-600 hover:text-gray-200"
-                }`
-              }
+            <button
+              onClick={() => setOpenHorarios(!openHorarios)}
+              className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
             >
               Horarios
-            </NavLink>
+              {openHorarios ? (
+                <IoChevronUpOutline className="text-lg" />
+              ) : (
+                <IoChevronDownOutline className="text-lg" />
+              )}
+            </button>
+
+            {openHorarios && (
+              <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
+                <li>
+                  <NavLink
+                    to="/horarios/lista-horarios"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Ver Horarios
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/horarios/crear-horarios"
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                        isActive
+                          ? "bg-white text-purple-700"
+                          : "hover:bg-purple-600 hover:text-gray-200"
+                      }`
+                    }
+                  >
+                    Crear Horario
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </li>
 
-          <li className='mt-100'>
+          {/* Cerrar sesión */}
+          <li className="mt-auto">
             <NavLink
-              to="/empleados"
+              to="/"
               className={({ isActive }) =>
                 `block rounded-md px-4 py-3 text-red-300 text-center font-semibold transition ${
                   isActive
@@ -86,7 +159,8 @@ const Navbar = () => {
         {/* Header superior */}
         <header className="bg-amber-200 h-16 flex items-center justify-between px-10 shadow-md">
           <h1 className="font-bold text-gray-800">
-            Rol del Usuario: <span className="text-purple-700">Administrador</span>
+            Rol del Usuario:{" "}
+            <span className="text-purple-700">Administrador</span>
           </h1>
 
           <div className="flex items-center gap-3 text-gray-800">
@@ -95,7 +169,7 @@ const Navbar = () => {
           </div>
         </header>
 
-       {/* Aquí va el contenido renderizado */}
+        {/* Aquí va el contenido renderizado */}
         <main className="flex-1 bg-gray-100 p-6">
           <Outlet />
         </main>
@@ -104,4 +178,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar
+export default Navbar;
