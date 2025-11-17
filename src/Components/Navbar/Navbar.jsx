@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
-  const [openEmpleados, setOpenEmpleados] = useState(false);
-  const [openHorarios, setOpenHorarios] = useState(false);
-  const [openPermisos, setOpenPermisos] = useState(false);
-  const [openAdministrador, setOpenAdministrador] = useState(false);
+  // Estado único que controla cuál menú está abierto
+  const [openMenu, setOpenMenu] = useState(null);
+
+  // Función genérica para abrir/cerrar un solo menú
+  const toggleMenu = (menuName) => {
+    setOpenMenu((prev) => (prev === menuName ? null : menuName));
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -20,11 +24,11 @@ const Navbar = () => {
             alt="Logo"
             className="rounded-full w-24 h-24 object-cover border-4 border-white shadow-md"
           />
-          <h2 className="mt-4 text-lg font-semibold">Panel Admin</h2>
         </div>
 
         {/* Navegación */}
         <ul className="flex flex-col gap-2">
+          {/* Asistencia */}
           <li>
             <NavLink
               to="/asistencia"
@@ -40,70 +44,82 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          {/* 🔹 Empleados con submenú */}
+          {/* Empleados */}
           <li>
             <button
-              onClick={() => setOpenEmpleados(!openEmpleados)}
+              onClick={() => toggleMenu("empleados")}
               className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
             >
               Empleados
-              {openEmpleados ? (
+              {openMenu === "empleados" ? (
                 <IoChevronUpOutline className="text-lg" />
               ) : (
                 <IoChevronDownOutline className="text-lg" />
               )}
             </button>
 
-            {openEmpleados && (
-              <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
-                <li>
-                  <NavLink
-                    to="/empleados/lista-empleados"
-                    className={({ isActive }) =>
-                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
-                        isActive
-                          ? "bg-white text-purple-700"
-                          : "hover:bg-purple-600 hover:text-gray-200"
-                      }`
-                    }
-                  >
-                    Ver Empleados
-                  </NavLink>
-                </li>
+            <AnimatePresence>
+              {openMenu === "empleados" && (
+               <motion.ul
+  key="empleados"
+  initial={{ opacity: 0, height: 0 }}
+  animate={{ opacity: 1, height: "auto" }}
+  exit={{ opacity: 0, height: 0 }}
+  transition={{ 
+    duration: 0.2,  // Reducir de 0.3 a 0.2
+    ease: [0.4, 0, 0.2, 1]  // Curva de animación más natural
+  }}
+  className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3 overflow-hidden"
+>
+                  <li>
+                    <NavLink
+                      to="/empleados/lista-empleados"
+                      className={({ isActive }) =>
+                        `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                          isActive
+                            ? "bg-white text-purple-700"
+                            : "hover:bg-purple-600 hover:text-gray-200"
+                        }`
+                      }
+                    >
+                      Ver Empleados
+                    </NavLink>
+                  </li>
 
-                <li>
-                  <NavLink
-                    to="/empleados/crear-empleados"
-                    className={({ isActive }) =>
-                      `block rounded-md px-3 py-2 font-medium text-sm transition ${
-                        isActive
-                          ? "bg-white text-purple-700"
-                          : "hover:bg-purple-600 hover:text-gray-200"
-                      }`
-                    }
-                  >
-                    Crear Empleados
-                  </NavLink>
-                </li>
-              </ul>
-            )}
+                  <li>
+                    <NavLink
+                      to="/empleados/crear-empleados"
+                      className={({ isActive }) =>
+                        `block rounded-md px-3 py-2 font-medium text-sm transition ${
+                          isActive
+                            ? "bg-white text-purple-700"
+                            : "hover:bg-purple-600 hover:text-gray-200"
+                        }`
+                      }
+                    >
+                      Crear Empleados
+                    </NavLink>
+                  </li>
+                </motion.ul>
+              )}
+            </AnimatePresence>
           </li>
 
-          {/* 🔹 Horarios con submenú */}
+          {/* Horarios */}
           <li>
             <button
-              onClick={() => setOpenHorarios(!openHorarios)}
+              onClick={() => toggleMenu("horarios")}
               className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
             >
               Horarios
-              {openHorarios ? (
+              {openMenu === "horarios" ? (
                 <IoChevronUpOutline className="text-lg" />
               ) : (
                 <IoChevronDownOutline className="text-lg" />
               )}
             </button>
 
-            {openHorarios && (
+            {openMenu === "horarios" && (
               <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
                 <li>
                   <NavLink
@@ -119,7 +135,6 @@ const Navbar = () => {
                     Ver Horarios
                   </NavLink>
                 </li>
-
                 <li>
                   <NavLink
                     to="/horarios/crear-horarios"
@@ -138,20 +153,21 @@ const Navbar = () => {
             )}
           </li>
 
+          {/* Permisos */}
           <li>
             <button
-              onClick={() => setOpenPermisos(!openPermisos)}
+              onClick={() => toggleMenu("permisos")}
               className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
             >
               Permisos
-              {openPermisos ? (
+              {openMenu === "permisos" ? (
                 <IoChevronUpOutline className="text-lg" />
               ) : (
                 <IoChevronDownOutline className="text-lg" />
               )}
             </button>
 
-            {openPermisos && (
+            {openMenu === "permisos" && (
               <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
                 <li>
                   <NavLink
@@ -167,7 +183,6 @@ const Navbar = () => {
                     Ver Permisos
                   </NavLink>
                 </li>
-
                 <li>
                   <NavLink
                     to="/permisos/crear-permisos"
@@ -186,20 +201,21 @@ const Navbar = () => {
             )}
           </li>
 
+          {/* Administrador */}
           <li>
             <button
-              onClick={() => setOpenAdministrador(!openAdministrador)}
+              onClick={() => toggleMenu("administrador")}
               className="w-full flex justify-between items-center rounded-md px-4 py-3 text-center font-semibold transition hover:bg-purple-600"
             >
               Administrador
-              {openAdministrador ? (
+              {openMenu === "administrador" ? (
                 <IoChevronUpOutline className="text-lg" />
               ) : (
                 <IoChevronDownOutline className="text-lg" />
               )}
             </button>
 
-            {openAdministrador && (
+            {openMenu === "administrador" && (
               <ul className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3">
                 <li>
                   <NavLink
@@ -212,10 +228,9 @@ const Navbar = () => {
                       }`
                     }
                   >
-                    Genero 
+                    Género
                   </NavLink>
                 </li>
-
                 <li>
                   <NavLink
                     to="/administrador/tipo-permisos"
@@ -230,7 +245,6 @@ const Navbar = () => {
                     Tipo Permiso
                   </NavLink>
                 </li>
-
                 <li>
                   <NavLink
                     to="/administrador/tipo-usuarios"
@@ -282,7 +296,7 @@ const Navbar = () => {
           </div>
         </header>
 
-        {/* Aquí va el contenido renderizado */}
+        {/* Contenido dinámico */}
         <main className="flex-1 bg-gray-100 p-6">
           <Outlet />
         </main>
