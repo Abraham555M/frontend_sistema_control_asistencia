@@ -17,7 +17,11 @@ const TablaTipoPermiso = ({ tipoPermisos }) => {
           <tr key={tipoPermiso.id_tipo_permiso}>
             <td>{tipoPermiso.id_tipo_permiso}</td>
             <td>{tipoPermiso.nom_tipo_permiso}</td>
-            <td>{tipoPermiso.est_tipo_permiso}</td>
+            {tipoPermiso.est_tipo_permiso == 1 ? (
+              <td>Activo</td>
+            ) : (
+              <td>Inactivo</td>
+            )}
             <td>
               <button>Cambiar estado</button>
             </td>
