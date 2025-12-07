@@ -7,7 +7,7 @@ const InputFormulario = ({ Icon, type = "text", placeholder }) => {
       <input
         type={type}
         placeholder={placeholder}
-        className="w-full py-2 outline-none bg-transparent placeholder-white/50 text-white"
+        className="w-full py-2 outline-none bg-transparent placeholder-white/50 text-white required:"
       />
     </div>
   );

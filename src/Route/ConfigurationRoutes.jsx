@@ -12,6 +12,7 @@ import Permisos from "../Pages/Permisos/Permisos";
 import TipoUsuario from "../Pages/Administrador/TipoUsuario/TipoUsuario";
 import TipoPermiso from "../Pages/Administrador/TipoPermiso/TipoPermiso";
 import Genero from "../Pages/Administrador/Genero/Genero";
+import CambiarPassword from "../Pages/Autenticacion/CambiarPassword";
 
 const ConfigurationRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const ConfigurationRoutes = () => {
       {/* Rutas sin navbar */}
       <Route path="/" element={<InicioSesion />} />
       <Route path="/recuperar" element={<RecuperarPassword />} />
+      <Route path="/cambiar-password" element={<CambiarPassword/>} />
 
       {/* Rutas con navbar */}
       <Route element={<LayoutConNavbar />}>

@@ -4,15 +4,21 @@ import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from '@mui/icons-material/Person'; // Usaremos un icono de persona más grande y central.
 import InputFormulario from '../../Components/Autenticacion/InputFormulario';
 import { FaEye } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import BotonFormulario from '../../Components/Autenticacion/BotonFormulario';
 
 const InicioSesion = () => {
-
     const [mostrarPassword, setMostrarPassword] = useState(false); 
-
-    const handleRecuperarPassword = (nombre) => {
-        alert("xdd" + nombre)
+    const navigate = useNavigate();
     
-        
+    const handleRecuperarPassword = (e) => {
+        e.preventDefault();
+        navigate("/recuperar");
+    }
+    
+    const handleIngresar = (e) => {
+
+        alert("aaa"); 
     }
 
     return (
@@ -55,32 +61,19 @@ const InicioSesion = () => {
                             type={mostrarPassword ? "text" : "password"} 
                             placeholder="Password" 
                         />
-                        <FaEye onClick={() => setMostrarPassword(!mostrarPassword)} className='absolute top-3 right-3 text-xl opacity-60 cursor-pointer' 
- />                   
+                        <FaEye onClick={() => setMostrarPassword(!mostrarPassword)} className='absolute top-3 right-3 text-xl opacity-60 cursor-pointer'/>                   
                    </div>
 
-                    {/* Opciones de "Recordarme" y "Olvidé Contraseña" */}
                     <div className='flex justify-end items-center text-sm mt-2'>                        
                         {/* Olvidé contraseña */}
-                        <a onClick={ e => handleRecuperarPassword("Viktor")} className="text-white/70 hover:text-white transition cursor-pointer">
+                        <a onClick={ e => handleRecuperarPassword(e)} className="text-white/70 hover:text-white transition cursor-pointer">
                             Forgot Password?
                         </a> 
                     </div>
                     
                     {/* Botón de Login */}
                     <div className='pt-3'>
-                        <button 
-                            type='submit'
-                            // Fondo con gradiente, esquinas redondeadas completas, sombra en el botón
-                            className="w-full py-2 text-lg font-semibold text-white 
-                                bg-gradient-to-r from-purple-600 to-indigo-600 
-                                rounded-full 
-                                shadow-lg shadow-purple-900/50 
-                                hover:from-purple-700 hover:to-indigo-700 
-                                transition duration-300"
-                        >
-                            LOGIN
-                        </button>
+                        <BotonFormulario valor={"INGRESAR"} operacion={handleIngresar}></BotonFormulario>
                     </div>
                 </form>
             </div>
