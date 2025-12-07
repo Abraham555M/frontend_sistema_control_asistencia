@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <nav className="bg-purple-700 flex flex-col w-64 p-6 text-white h-screen">
+      <nav className="bg-indigo-900 flex flex-col w-64 p-6 text-white h-screen">
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">
           <img
@@ -60,17 +60,17 @@ const Navbar = () => {
 
             <AnimatePresence>
               {openMenu === "empleados" && (
-               <motion.ul
-  key="empleados"
-  initial={{ opacity: 0, height: 0 }}
-  animate={{ opacity: 1, height: "auto" }}
-  exit={{ opacity: 0, height: 0 }}
-  transition={{ 
-    duration: 0.2,  // Reducir de 0.3 a 0.2
-    ease: [0.4, 0, 0.2, 1]  // Curva de animación más natural
-  }}
-  className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3 overflow-hidden"
->
+                <motion.ul
+                  key="empleados"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{
+                    duration: 0.2, // Reducir de 0.3 a 0.2
+                    ease: [0.4, 0, 0.2, 1], // Curva de animación más natural
+                  }}
+                  className="ml-4 mt-2 space-y-2 border-l border-purple-300 pl-3 overflow-hidden"
+                >
                   <li>
                     <NavLink
                       to="/empleados/lista-empleados"

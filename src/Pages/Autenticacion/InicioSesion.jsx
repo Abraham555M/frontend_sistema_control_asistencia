@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from '@mui/icons-material/Person'; // Usaremos un icono de persona más grande y central.
 import InputFormulario from '../../Components/Autenticacion/InputFormulario';
+import { FaEye } from 'react-icons/fa';
 
 const InicioSesion = () => {
+
+    const [mostrarPassword, setMostrarPassword] = useState(false); 
 
     const handleRecuperarPassword = (nombre) => {
         alert("xdd" + nombre)
     
         
     }
-
-    useEffect
 
     return (
         <section className="h-screen flex justify-center items-center 
@@ -39,21 +40,25 @@ const InicioSesion = () => {
                 
                 {/* Formulario */}
                 <form action="" className='space-y-6 w-full text-white'>
-                    
-                   {/* Campo Email */}
-                    <InputFormulario 
-                        Icon={EmailIcon} 
-                        type="email" 
-                        placeholder="Email ID" 
-                    />
+                   <div>
+                        {/* Campo Email */}
+                        <InputFormulario 
+                            Icon={EmailIcon} 
+                            type="email" 
+                            placeholder="Email ID" 
+                        />
+                   </div>
+                   <div className='relative'>
+                        { /* Campo Contraseña */}
+                        <InputFormulario 
+                            Icon={LockIcon} 
+                            type={mostrarPassword ? "text" : "password"} 
+                            placeholder="Password" 
+                        />
+                        <FaEye onClick={() => setMostrarPassword(!mostrarPassword)} className='absolute top-3 right-3 text-xl opacity-60 cursor-pointer' 
+ />                   
+                   </div>
 
-                    {/* Campo Contraseña */}
-                    <InputFormulario 
-                        Icon={LockIcon} 
-                        type="password" 
-                        placeholder="Password" 
-                    />                                    
-                    
                     {/* Opciones de "Recordarme" y "Olvidé Contraseña" */}
                     <div className='flex justify-end items-center text-sm mt-2'>                        
                         {/* Olvidé contraseña */}
@@ -63,11 +68,11 @@ const InicioSesion = () => {
                     </div>
                     
                     {/* Botón de Login */}
-                    <div className='pt-4'>
+                    <div className='pt-3'>
                         <button 
                             type='submit'
                             // Fondo con gradiente, esquinas redondeadas completas, sombra en el botón
-                            className="w-full py-3 text-lg font-semibold text-white 
+                            className="w-full py-2 text-lg font-semibold text-white 
                                 bg-gradient-to-r from-purple-600 to-indigo-600 
                                 rounded-full 
                                 shadow-lg shadow-purple-900/50 
@@ -79,7 +84,6 @@ const InicioSesion = () => {
                     </div>
                 </form>
             </div>
-            
         </section>
     )
 }

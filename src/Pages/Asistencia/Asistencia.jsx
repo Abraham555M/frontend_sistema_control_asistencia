@@ -36,23 +36,43 @@ const Asistencia = () => {
   };
 
   return (
-    <div className="border flex flex-col items-center justify-center h-[80%] gap-5">
-      {/* Hora actual */}
-      <div className="text-3xl font-bold text-purple-700">
-        {horaActual}
+    <div className="flex flex-col items-center h-[95%] gap-6">
+      {/* Título */}
+      <div className="w-full p-6 border border-gray-200 shadow-lg rounded-2xl bg-white">
+        <h1 className="text-3xl font-extrabold text-center text-gray-800">
+          Bienvenido a Company Street
+        </h1>
       </div>
 
-      {/* Botón */}
-      <button         onClick={handleClick}
- className="flex justify-center cursor-pointer bg-amber-400 rounded-2xl p-5 w-60 text-white text-xl font-bold shadow-md hover:bg-amber-500 transition">
-        Registrar Asistencia
-      </button>
+      {/* Contenedor principal */}
+      <div className="w-full p-6 border border-gray-200 shadow-lg rounded-2xl bg-white flex flex-col items-center gap-6">
+        {/* Botón Mis Asistencias */}
+        <button className="self-end bg-green-500 text-white font-semibold text-md px-5 py-3 rounded-2xl shadow-md hover:bg-green-600 transition">
+          Mis Asistencias
+        </button>
 
-      {/* Texto */}
-      <div>
-        <p className="text-gray-600">Recuerda marcar tu asistencia una sola vez</p>
+        {/* Hora actual */}
+        <div className="text-4xl font-extrabold text-purple-700 tracking-wide">
+          {horaActual}
+        </div>
+
+        {/* Botón Registrar */}
+        <button
+          onClick={handleClick}
+          className="w-60 bg-amber-500 text-white text-md font-bold px-5 py-3 rounded-2xl shadow-md hover:bg-amber-600 transition"
+        >
+          Registrar Asistencia
+        </button>
+
+        {/* Texto informativo */}
+        <div className="bg-gray-100 rounded-2xl p-5 w-[80%] text-center shadow-inner">
+          <p className="text-gray-600 font-medium">
+            Recuerda marcar tu asistencia una sola vez.
+          </p>
+        </div>
       </div>
 
+      {/* Modal */}
       <ModalSuccess
         isOpen={mostrarModal}
         onClose={() => setMostrarModal(false)}
