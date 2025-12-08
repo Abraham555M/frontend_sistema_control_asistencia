@@ -19,7 +19,7 @@ const Header = ({rol, nombre}) => {
         </header>
 
         {/* Contenido dinámico */}
-        <main className="flex-1 bg-gray-100 p-6">
+        <main className="flex-1 bg-gray-200 p-6">
             <Outlet />
         </main>
     </div>

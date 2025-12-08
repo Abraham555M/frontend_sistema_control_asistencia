@@ -1,5 +1,5 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const ExitItem = ({ direccion, valor }) => {
   return (
@@ -15,7 +15,7 @@ const ExitItem = ({ direccion, valor }) => {
     >
       {valor}
     </NavLink>
-  )
-}
+  );
+};
 
-export default ExitItem
+export default ExitItem;
