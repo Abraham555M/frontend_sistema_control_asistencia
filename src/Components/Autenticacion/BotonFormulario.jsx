@@ -10,7 +10,7 @@ const BotonFormulario = ({valor, operacion}) => {
             rounded-full 
             shadow-lg shadow-purple-900/50 
             hover:from-purple-700 hover:to-indigo-700 
-            transition duration-300"
+            duration-300 hover:scale-110 transition-transform"
     >
         {valor}
     </button>

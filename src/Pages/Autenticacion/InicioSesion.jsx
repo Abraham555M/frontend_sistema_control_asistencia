@@ -17,8 +17,8 @@ const InicioSesion = () => {
     }
     
     const handleIngresar = (e) => {
-
-        alert("aaa"); 
+        e.preventDefault();
+        navigate("/asistencia");
     }
 
     return (
