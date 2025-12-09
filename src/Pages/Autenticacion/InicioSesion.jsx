@@ -1,47 +1,75 @@
-import React, { useEffect, useState } from 'react'
-import EmailIcon from '@mui/icons-material/Email';
+import React, { useEffect, useState } from "react";
+import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
-import PersonIcon from '@mui/icons-material/Person'; // Usaremos un icono de persona más grande y central.
-import InputFormulario from '../../Components/Autenticacion/InputFormulario';
-import { FaEye } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import BotonFormulario from '../../Components/Autenticacion/BotonFormulario';
-import { Login } from '../../Services/Autenticacion/Auth';
+import PersonIcon from "@mui/icons-material/Person"; // Usaremos un icono de persona más grande y central.
+import InputFormulario from "../../Components/Autenticacion/InputFormulario";
+import { FaEye } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import BotonFormulario from "../../Components/Autenticacion/BotonFormulario";
+import { Login } from "../../Services/Autenticacion/Auth";
+import LoaderScreen from "../../Components/Layouts/LoaderScreen";
+import GlassModal from "../../Components/Modales/GlassModal";
 
 const InicioSesion = () => {
-    const [mostrarPassword, setMostrarPassword] = useState(false); 
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [mostrarPassword, setMostrarPassword] = useState(false);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-    const handleRecuperarPassword = (e) => {
-        e.preventDefault();
-        navigate("/recuperar");
+  const handleRecuperarPassword = (e) => {
+    e.preventDefault();
+    navigate("/recuperar");
+  };
+
+  const handleIngresar = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const resp = await Login(email, password);
+    setLoading(false);
+
+    if (resp.error) {
+        setErrorMsg(resp.message);
+        setErrorModal(true);
+        return;
     }
-    
-    const handleIngresar = async (e) => {
-        e.preventDefault();
 
-        const resp = await Login(email, password);
+    // Guardas token
+    localStorage.setItem("token", resp.data.access_token);
 
-        if (resp.error) {
-            alert(resp.message);  // Puedes poner un toast amigable
-            return;
-        }
+    // Redirigir
+    navigate("/asistencia");
+  };
 
-        // Guardas token
-        localStorage.setItem("token", resp.data.access_token);
+  return (
+    <>
+      {loading && <LoaderScreen />}
 
-        // Redirigir
-        navigate("/asistencia");
-    };
+        <GlassModal 
+            open={errorModal} 
+            onClose={() => setErrorModal(false)}
+            title="Acceso Denegado"
+            message={errorMsg}
+        >
+            <button 
+                onClick={() => setErrorModal(false)}
+                className="mt-3 w-full bg-white/20 hover:bg-white/30 
+                        transition py-2 rounded-xl"
+            >
+                Entendido
+            </button>
+        </GlassModal>
 
-    return (
-        <section className="h-screen flex justify-center items-center 
-            bg-gradient-to-br from-red-900 via-purple-900 to-indigo-900"> 
-            
-            {/* 2. Tarjeta con Efecto Glassmorphism */}
-            <div className="
+      <section
+        className="h-screen flex justify-center items-center 
+            bg-gradient-to-br from-red-900 via-purple-900 to-indigo-900"
+      >
+        {/* 2. Tarjeta con Efecto Glassmorphism */}
+        <div
+          className="
                 bg-white/0                      /* Fondo blanco con 10% de opacidad */
                 backdrop-blur-xl                 /* La clave: Desenfoca lo que está detrás del div */
                 rounded-3xl                      /* Bordes más redondeados */
@@ -49,55 +77,69 @@ const InicioSesion = () => {
                 shadow-black/40                  /* Sombra más oscura para contraste */
                 p-8 w-[350px] flex flex-col items-center 
                 border border-white/10         
-            ">
-                {/* 3. Icono de Usuario Central */}
-                <div className='mb-6'>
-                    {/* El icono grande y con color de la imagen original es más fácil de lograr con un div con gradiente que con un simple Mui Icon */}
-                    <div className='w-24 h-24 rounded-full bg-white/20 flex justify-center items-center shadow-inner'>
-                        {/* Puedes reemplazar esto con una imagen de perfil si quieres */}
-                        <PersonIcon className="!text-white opacity-70" sx={{ fontSize: 70 }} />
-                    </div>
-                </div>
-                
-                {/* Formulario */}
-                <form onSubmit={handleIngresar}  className='space-y-6 w-full text-white'>
-                   <div>
-                        {/* Campo Email */}
-                        <InputFormulario 
-                            Icon={EmailIcon} 
-                            type="text" 
-                            placeholder="User"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                   </div>
-                   <div className='relative'>
-                        { /* Campo Contraseña */}
-                        <InputFormulario 
-                            Icon={LockIcon} 
-                            type={mostrarPassword ? "text" : "password"} 
-                            placeholder="Password" 
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <FaEye onClick={() => setMostrarPassword(!mostrarPassword)} className='absolute top-3 right-3 text-xl opacity-60 cursor-pointer'/>                   
-                   </div>
-
-                    <div className='flex justify-end items-center text-sm mt-2'>                        
-                        {/* Olvidé contraseña */}
-                        <a onClick={ e => handleRecuperarPassword(e)} className="text-white/70 hover:text-white transition cursor-pointer">
-                            Forgot Password?
-                        </a> 
-                    </div>
-                    
-                    {/* Botón de Login */}
-                    <div className='pt-3'>
-                        <BotonFormulario valor={"INGRESAR"}></BotonFormulario>
-                    </div>
-                </form>
+            "
+        >
+          {/* 3. Icono de Usuario Central */}
+          <div className="mb-6">
+            {/* El icono grande y con color de la imagen original es más fácil de lograr con un div con gradiente que con un simple Mui Icon */}
+            <div className="w-24 h-24 rounded-full bg-white/20 flex justify-center items-center shadow-inner">
+              {/* Puedes reemplazar esto con una imagen de perfil si quieres */}
+              <PersonIcon
+                className="!text-white opacity-70"
+                sx={{ fontSize: 70 }}
+              />
             </div>
-        </section>
-    )
-}
+          </div>
 
-export default InicioSesion
+          {/* Formulario */}
+          <form
+            onSubmit={handleIngresar}
+            className="space-y-6 w-full text-white"
+          >
+            <div>
+              {/* Campo Email */}
+              <InputFormulario
+                Icon={EmailIcon}
+                type="text"
+                placeholder="User"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="relative">
+              {/* Campo Contraseña */}
+              <InputFormulario
+                Icon={LockIcon}
+                type={mostrarPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <FaEye
+                onClick={() => setMostrarPassword(!mostrarPassword)}
+                className="absolute top-3 right-3 text-xl opacity-60 cursor-pointer"
+              />
+            </div>
+
+            <div className="flex justify-end items-center text-sm mt-2">
+              {/* Olvidé contraseña */}
+              <a
+                onClick={(e) => handleRecuperarPassword(e)}
+                className="text-white/70 hover:text-white transition cursor-pointer"
+              >
+                Forgot Password?
+              </a>
+            </div>
+
+            {/* Botón de Login */}
+            <div className="pt-3">
+              <BotonFormulario valor={"INGRESAR"}></BotonFormulario>
+            </div>
+          </form>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default InicioSesion;
