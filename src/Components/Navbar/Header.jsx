@@ -6,7 +6,7 @@ const Header = ({rol, nombre}) => {
   return (
     <div className="flex-1 flex flex-col">
         {/* Header superior */}
-        <header className="bg-[#6B4B9E] h-16 flex items-center justify-between px-10 shadow-md">
+        <header className="bg-[#4d3277] h-16 flex items-center justify-between px-10 shadow-md">
             <h1 className="font-bold text-white">
             Rol del Usuario:{" "}
             <span className="text-white">{rol}</span>
