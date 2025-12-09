@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ModalSuccess from "../../Components/Modales/ModalSuccess";
 import { useHoraActual } from "../../Hooks/Asistencia/HoraActual";
+import ModalGlass from "../../Components/Modales/ModalGlass";
 
 const Asistencia = () => {
   const horaActual = useHoraActual();
   const [mostrarModal, setMostrarModal] = useState(false);
-  
+    const [open, setOpen] = useState(false);
+
   const handleClick = () => {
     // Aquí podrías registrar la asistencia
     setMostrarModal(true);
@@ -22,27 +24,33 @@ const Asistencia = () => {
 
       {/* Contenedor principal */}
       <div className="w-full h-full p-6 border border-gray-200 shadow-lg rounded-2xl bg-white flex flex-col items-center gap-6">
+        
+       <div className="flex justify-between  w-full">
+        <h1 className="text-2xl font-bold">¿Listo para marcar tu asistencia?</h1>
         {/* Botón Mis Asistencias */}
         <button className="self-end bg-[#06B6D4] text-white font-semibold text-md px-5 py-3 rounded-2xl shadow-md hover:bg-[#059ab4] transition">
           Mis Asistencias
         </button>
+       </div>
 
         {/* Hora actual */}
-        <div className="text-4xl font-extrabold text-purple-700 tracking-wide">
-          {horaActual}
+        <div className=" text-black tracking-wide text-center">
+         
+          <p>Hoy es Lunes, 8 de Diciembre.</p>
+          <span className="text-4xl font-extrabold"> {horaActual} </span>
         </div>
 
         {/* Botón Registrar */}
         <button
           onClick={handleClick}
-          className="w-60 bg-[#8B5CF6] text-white text-md font-bold px-5 py-3 rounded-2xl shadow-md hover:bg-amber-600 transition"
+          className="w-60 bg-[#EC4899] text-white text-md font-bold px-5 py-3 rounded-2xl shadow-md hover:bg-[#bb1869] hover:scale-105 transition-transform"
         >
           Registrar Asistencia
         </button>
 
         {/* Texto informativo */}
-        <div className="bg-gray-100 rounded-2xl p-5 w-[90%] text-center shadow-inner h-60">
-          <p className="text-gray-600 font-medium">
+        <div className="bg-gray-100 rounded-2xl p-5 w-[90%] text-center shadow-inner h-60 flex items-center justify-center">
+          <p className="text-gray-600 font-medium text-xl">
             Recuerda marcar tu asistencia una sola vez.
           </p>
         </div>

@@ -1,10 +1,9 @@
 import React from 'react'
 
-const BotonFormulario = ({valor, operacion}) => {
+const BotonFormulario = ({valor}) => {
   return (
    <button 
         type='submit'
-        onClick={(e) => operacion(e)}
         className="w-full py-2 text-lg font-semibold text-white 
             bg-gradient-to-r from-purple-600 to-indigo-600 
             rounded-full 

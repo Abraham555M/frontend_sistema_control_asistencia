@@ -45,13 +45,13 @@ const InicioSesion = () => {
                 </div>
                 
                 {/* Formulario */}
-                <form action="" className='space-y-6 w-full text-white'>
+                <form onSubmit={handleIngresar}  className='space-y-6 w-full text-white'>
                    <div>
                         {/* Campo Email */}
                         <InputFormulario 
                             Icon={EmailIcon} 
                             type="email" 
-                            placeholder="Email ID" 
+                            placeholder="Email ID"
                         />
                    </div>
                    <div className='relative'>
@@ -73,7 +73,7 @@ const InicioSesion = () => {
                     
                     {/* Botón de Login */}
                     <div className='pt-3'>
-                        <BotonFormulario valor={"INGRESAR"} operacion={handleIngresar}></BotonFormulario>
+                        <BotonFormulario valor={"INGRESAR"}></BotonFormulario>
                     </div>
                 </form>
             </div>
