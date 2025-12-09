@@ -98,7 +98,7 @@ const Navbar = () => {
         <div className="mt-4">
           <ul>
             <li>
-              <ExitItem direccion="/" valor="Cerrar Sesión" />
+              <ExitItem valor="Cerrar Sesión" />
             </li>
           </ul>
         </div>

@@ -13,24 +13,29 @@ import TipoUsuario from "../Pages/Administrador/TipoUsuario/TipoUsuario";
 import TipoPermiso from "../Pages/Administrador/TipoPermiso/TipoPermiso";
 import Genero from "../Pages/Administrador/Genero/Genero";
 import CambiarPassword from "../Pages/Autenticacion/CambiarPassword";
+import ProtectedRoute from "../Hooks/Rutas/ProtectedRoute";
 
 const ConfigurationRoutes = () => {
   return (
     <Routes>
-      {/* Rutas sin navbar */}
+      {/* Rutas públicas */}
       <Route path="/" element={<InicioSesion />} />
       <Route path="/recuperar" element={<RecuperarPassword />} />
-      <Route path="/cambiar-password" element={<CambiarPassword/>} />
+      <Route path="/cambiar-password" element={<CambiarPassword />} />
 
-      {/* Rutas con navbar */}
-      <Route element={<LayoutConNavbar />}>
+      {/* Rutas protegidas */}
+      <Route
+        element={
+          <ProtectedRoute>
+            <LayoutConNavbar />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/asistencia" element={<Asistencia />} />
-        <Route
-          path="/redirigir"
-          element={<Navigate to={"/asistencia"}></Navigate>}
-        />
 
-        {/* Rutas anidadas */}
+        <Route path="/redirigir" element={<Navigate to="/asistencia" />} />
+
+        {/* Anidadas */}
         <Route path="empleados">
           <Route path="lista-empleados" element={<ListarEmpleados />} />
           <Route path="crear-empleados" element={<Empleados />} />
@@ -39,9 +44,9 @@ const ConfigurationRoutes = () => {
         <Route path="horarios">
           <Route path="lista-horarios" element={<ListarHorario />} />
           <Route path="crear-horarios" element={<Horario />} />
-        </Route>         
+        </Route>
 
-         <Route path="permisos">
+        <Route path="permisos">
           <Route path="lista-permisos" element={<ListarPermisos />} />
           <Route path="crear-permisos" element={<Permisos />} />
         </Route>
@@ -51,6 +56,7 @@ const ConfigurationRoutes = () => {
           <Route path="tipo-permisos" element={<TipoPermiso />} />
           <Route path="tipo-usuarios" element={<TipoUsuario />} />
         </Route>
+
       </Route>
 
       <Route path="*" element={<h1>NOT FOUND</h1>} />

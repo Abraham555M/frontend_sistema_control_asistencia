@@ -15,3 +15,12 @@ export const Login = async (usr_usuario, pas_usuario) => {
     return { error: true, message: "Error de conexión" };
   }
 };
+
+export const Logout = async () => {
+  try {
+    const response = await api.post('/auth/logout');
+    return response.data;
+  } catch (error) {
+    return { error: true, message: "Error al cerrar sesión" };
+  }
+};

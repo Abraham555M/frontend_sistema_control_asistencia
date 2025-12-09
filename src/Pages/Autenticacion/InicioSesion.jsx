@@ -6,20 +6,35 @@ import InputFormulario from '../../Components/Autenticacion/InputFormulario';
 import { FaEye } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import BotonFormulario from '../../Components/Autenticacion/BotonFormulario';
+import { Login } from '../../Services/Autenticacion/Auth';
 
 const InicioSesion = () => {
     const [mostrarPassword, setMostrarPassword] = useState(false); 
     const navigate = useNavigate();
-    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const handleRecuperarPassword = (e) => {
         e.preventDefault();
         navigate("/recuperar");
     }
     
-    const handleIngresar = (e) => {
+    const handleIngresar = async (e) => {
         e.preventDefault();
+
+        const resp = await Login(email, password);
+
+        if (resp.error) {
+            alert(resp.message);  // Puedes poner un toast amigable
+            return;
+        }
+
+        // Guardas token
+        localStorage.setItem("token", resp.data.access_token);
+
+        // Redirigir
         navigate("/asistencia");
-    }
+    };
 
     return (
         <section className="h-screen flex justify-center items-center 
@@ -50,8 +65,10 @@ const InicioSesion = () => {
                         {/* Campo Email */}
                         <InputFormulario 
                             Icon={EmailIcon} 
-                            type="email" 
-                            placeholder="Email ID"
+                            type="text" 
+                            placeholder="User"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                    </div>
                    <div className='relative'>
@@ -60,6 +77,8 @@ const InicioSesion = () => {
                             Icon={LockIcon} 
                             type={mostrarPassword ? "text" : "password"} 
                             placeholder="Password" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <FaEye onClick={() => setMostrarPassword(!mostrarPassword)} className='absolute top-3 right-3 text-xl opacity-60 cursor-pointer'/>                   
                    </div>
