@@ -28,20 +28,31 @@ const InicioSesion = () => {
     e.preventDefault();
     setLoading(true);
 
-    const resp = await Login(email, password);
-    setLoading(false);
+    try {
+      const resp = await Login(email, password);
 
-    if (resp.error) {
+      if (resp.error) {
         setErrorMsg(resp.message);
         setErrorModal(true);
+        setLoading(false);
         return;
+      }
+
+      // Guarda PRIMERO todo en localStorage (sincrónico, instantáneo)
+      localStorage.setItem("token", resp.data.access_token);
+      localStorage.setItem("usuario", JSON.stringify(resp.data.user.empleado));
+      localStorage.setItem("usuario_timestamp", Date.now().toString());
+
+      // LUEGO navega (el Navbar ya tendrá los datos disponibles)
+      navigate("/asistencia");
+      
+    } catch (error) {
+      console.error("Error en login:", error);
+      setErrorMsg("Error al iniciar sesión");
+      setErrorModal(true);
+    } finally {
+      setLoading(false);
     }
-
-    // Guardas token
-    localStorage.setItem("token", resp.data.access_token);
-
-    // Redirigir
-    navigate("/asistencia");
   };
 
   return (

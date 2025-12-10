@@ -11,21 +11,36 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const [empleado, setEmpleado] = useState(null);
 
+
   // Función genérica para abrir/cerrar un solo menú
   const toggleMenu = (menuName) => {
     setOpenMenu((prev) => (prev === menuName ? null : menuName));
   };
 
   useEffect(() => {
+    // Primero intenta obtener del localStorage
+    const empleadoGuardado = localStorage.getItem("usuario");
+    
+    if (empleadoGuardado) {
+      try {
+        const empleadoData = JSON.parse(empleadoGuardado);
+        setEmpleado(empleadoData);
+      } catch (error) {
+        console.error("Error al parsear empleado:", error);
+      }
+    }
+
+    // Luego, opcionalmente, refresca los datos del servidor en background
     obtenerEmpleadoHeader()
       .then(res => {
-        setEmpleado(res.data.data); // Guardar el empleado
+        setEmpleado(res.data.data);
+        // Actualiza localStorage con datos frescos
+        localStorage.setItem("usuario", JSON.stringify(res.data.data));
       })
       .catch(err => {
         console.log("Error:", err.response?.data);
       });
   }, []);
-
 
   return (
     <div className="flex min-h-screen">
