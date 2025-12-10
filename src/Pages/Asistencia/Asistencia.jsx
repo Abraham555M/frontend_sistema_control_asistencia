@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import ModalSuccess from "../../Components/Modales/ModalSuccess";
 import { useHoraActual } from "../../Hooks/Asistencia/HoraActual";
-import ModalGlass from "../../Components/Modales/ModalGlass";
+import { useFechaActual } from "../../Hooks/Asistencia/DiaActual";
 
 const Asistencia = () => {
   const horaActual = useHoraActual();
+  const fechaActual = useFechaActual();
+
   const [mostrarModal, setMostrarModal] = useState(false);
-    const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     // Aquí podrías registrar la asistencia
@@ -36,7 +37,7 @@ const Asistencia = () => {
         {/* Hora actual */}
         <div className=" text-black tracking-wide text-center">
          
-          <p>Hoy es Lunes, 8 de Diciembre.</p>
+        <p>{fechaActual}</p>
           <span className="text-4xl font-extrabold"> {horaActual} </span>
         </div>
 
