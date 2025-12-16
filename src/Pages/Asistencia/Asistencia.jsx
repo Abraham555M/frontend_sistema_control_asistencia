@@ -2,34 +2,41 @@ import { useState } from "react";
 import ModalSuccess from "../../Components/Modales/ModalSuccess";
 import { useHoraActual } from "../../Hooks/Asistencia/HoraActual";
 import { useFechaActual } from "../../Hooks/Asistencia/DiaActual";
+import GlassModal from "../../Components/Modales/GlassModal";
+import AsistenciaSemanalModal from "../../Components/Modales/AsistenciaSemanalModal";
+import ModalCondicional from "../../Components/Modales/ModalCondicional";
 
 const Asistencia = () => {
   const horaActual = useHoraActual();
   const fechaActual = useFechaActual();
 
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [modalMisAsistencias, setModalMisAsistencias] = useState(false); 
 
   const handleClick = () => {
     // Aquí podrías registrar la asistencia
     setMostrarModal(true);
   };
 
+  const handleMisAsistencias = () => {
+    setModalMisAsistencias(true);
+  }
+
   return (
     <div className="flex flex-col items-center h-[95%] gap-6">
       {/* Título */}
-      <div className="w-full p-6  bg-white shadow-lg rounded-2xl ">
-        <h1 className="text-3xl font-extrabold text-center text-gray-800">
+      <div className="w-full p-6 bg-white shadow-lg rounded-2xl text-center space-y-2">
+        <h1 className="text-3xl font-extrabold text-gray-800">
           Bienvenido a Company Street
         </h1>
+        <p className="text-xl font-semibold">¿Listo para marcar tu asistencia?</p>
       </div>
 
       {/* Contenedor principal */}
       <div className="w-full h-full p-6 border border-gray-200 shadow-lg rounded-2xl bg-white flex flex-col items-center gap-6">
-        
-       <div className="flex justify-between  w-full">
-        <h1 className="text-2xl font-bold">¿Listo para marcar tu asistencia?</h1>
+       <div className="flex justify-end w-full">
         {/* Botón Mis Asistencias */}
-        <button className="self-end bg-[#06B6D4] text-white font-semibold text-md px-5 py-3 rounded-2xl shadow-md hover:bg-[#059ab4] transition">
+        <button onClick={handleMisAsistencias} className="self-end bg-[#06B6D4] text-white font-semibold text-md px-5 py-3 rounded-2xl shadow-md hover:bg-[#059ab4] hover:scale-105 transition-transform">
           Mis Asistencias
         </button>
        </div>
@@ -58,12 +65,20 @@ const Asistencia = () => {
       </div>
 
       {/* Modal */}
-      <ModalSuccess
-        isOpen={mostrarModal}
-        onClose={() => setMostrarModal(false)}
-        title="¡Asistencia Registrada!"
-        message="Tu asistencia se ha marcado correctamente."
+       <ModalCondicional
+            open={mostrarModal} 
+            onClose={() => setMostrarModal(false)}
+            title="Cerrar Sesión"
+            message={"¿Desea cerrar sesión de su cuenta?"}
+        >
+         
+        </ModalCondicional>
+
+      <AsistenciaSemanalModal
+        open={modalMisAsistencias}
+        onClose={() => setModalMisAsistencias(false)}
       />
+
     </div>
   );
 };

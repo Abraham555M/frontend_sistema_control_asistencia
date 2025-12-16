@@ -1,8 +1,13 @@
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 
-const GlassModal = ({ open, onClose, title, message, children }) => {
+const ModalCondicional = ({
+  open,
+  onClose,
+  title,
+  message,
+  onConfirm,
+}) => {
   return (
     <AnimatePresence>
       {open && (
@@ -18,9 +23,7 @@ const GlassModal = ({ open, onClose, title, message, children }) => {
 
           {/* Modal */}
           <motion.div
-            className="
-              fixed inset-0 flex justify-center items-center z-50
-            "
+            className="fixed inset-0 flex justify-center items-center z-50"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -31,9 +34,9 @@ const GlassModal = ({ open, onClose, title, message, children }) => {
                 border border-white/20
                 shadow-lg shadow-black/40
                 rounded-3xl p-6
-                w-[920px]
+                w-[420px]
                 text-white
-                relative 
+                relative
               "
             >
               {/* Botón cerrar */}
@@ -53,13 +56,37 @@ const GlassModal = ({ open, onClose, title, message, children }) => {
 
               {/* Mensaje */}
               {message && (
-                <p className="text-white/80 text-center mb-5">
+                <p className="text-white/80 text-center mb-6">
                   {message}
                 </p>
               )}
 
-              {/* Botón(s) o contenido extra */}
-              {children}
+              {/* Botones */}
+              <div className="flex justify-between gap-4 mt-6">
+                {/* NO */}
+                <button
+                  onClick={onClose}
+                  className="
+                    w-full py-2 rounded-xl
+                    bg-white/20 hover:bg-white/30
+                    transition
+                  "
+                >
+                  Rechazar
+                </button>
+
+                {/* SÍ */}
+                <button
+                  onClick={onConfirm}
+                  className="
+                    w-full py-2 rounded-xl
+                    bg-green-500/80 hover:bg-green-500
+                    transition font-semibold
+                  "
+                >
+                  Aceptar
+                </button>
+              </div>
             </div>
           </motion.div>
         </>
@@ -68,4 +95,4 @@ const GlassModal = ({ open, onClose, title, message, children }) => {
   );
 };
 
-export default GlassModal;
+export default ModalCondicional;
