@@ -7,6 +7,7 @@ const ModalCondicional = ({
   title,
   message,
   onConfirm,
+  loading = false,
 }) => {
   return (
     <AnimatePresence>
@@ -15,7 +16,7 @@ const ModalCondicional = ({
           {/* Overlay */}
           <motion.div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-            onClick={onClose}
+            onClick={!loading ? onClose : undefined}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -40,12 +41,14 @@ const ModalCondicional = ({
               "
             >
               {/* Botón cerrar */}
-              <button
-                onClick={onClose}
-                className="absolute top-3 right-3 text-white/70 hover:text-white transition"
-              >
-                <FaTimes size={20} />
-              </button>
+              {!loading && (
+                <button
+                  onClick={onClose}
+                  className="absolute top-3 right-3 text-white/70 hover:text-white transition"
+                >
+                  <FaTimes size={20} />
+                </button>
+              )}
 
               {/* Título */}
               {title && (
@@ -66,11 +69,15 @@ const ModalCondicional = ({
                 {/* NO */}
                 <button
                   onClick={onClose}
-                  className="
-                    w-full py-2 rounded-xl
-                    bg-white/20 hover:bg-white/30
-                    transition
-                  "
+                  disabled={loading}
+                  className={`
+                    w-full py-2 rounded-xl transition
+                    ${
+                      loading
+                        ? "bg-white/10 cursor-not-allowed"
+                        : "bg-white/20 hover:bg-white/30"
+                    }
+                  `}
                 >
                   Rechazar
                 </button>
@@ -78,13 +85,17 @@ const ModalCondicional = ({
                 {/* SÍ */}
                 <button
                   onClick={onConfirm}
-                  className="
-                    w-full py-2 rounded-xl
-                    bg-green-500/80 hover:bg-green-500
-                    transition font-semibold
-                  "
+                  disabled={loading}
+                  className={`
+                    w-full py-2 rounded-xl font-semibold transition
+                    ${
+                      loading
+                        ? "bg-green-500/40 cursor-not-allowed"
+                        : "bg-green-500/80 hover:bg-green-500"
+                    }
+                  `}
                 >
-                  Aceptar
+                  {loading ? "Cerrando..." : "Aceptar"}
                 </button>
               </div>
             </div>
