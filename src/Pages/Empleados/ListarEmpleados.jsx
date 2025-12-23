@@ -30,7 +30,7 @@ const ListarEmpleados = () => {
         </div>
 
         {/* Filtros por fechas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 border-b border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 border-gray-200">
           <div className="flex flex-col">
             <label className="font-medium mb-1 text-gray-700">Desde</label>
             <input
@@ -49,7 +49,7 @@ const ListarEmpleados = () => {
         </div>
 
         {/* Buscadores */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 py-6 border-b border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 pb-5 border-b border-gray-200">
           
           {/* Input Buscar */}
           <div className="md:col-span-2">

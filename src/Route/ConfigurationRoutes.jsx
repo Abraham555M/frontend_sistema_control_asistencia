@@ -14,6 +14,7 @@ import TipoPermiso from "../Pages/Administrador/TipoPermiso/TipoPermiso";
 import Genero from "../Pages/Administrador/Genero/Genero";
 import CambiarPassword from "../Pages/Autenticacion/CambiarPassword";
 import ProtectedRoute from "../Hooks/Rutas/ProtectedRoute";
+import ComponentUseReducer from "../Components/Apoyo/ComponentUseReducer";
 
 const ConfigurationRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const ConfigurationRoutes = () => {
       <Route path="/" element={<InicioSesion />} />
       <Route path="/recuperar" element={<RecuperarPassword />} />
       <Route path="/cambiar-password" element={<CambiarPassword />} />
+      <Route path="/practice" element={<ComponentUseReducer/> } />
 
       {/* Rutas protegidas */}
       <Route

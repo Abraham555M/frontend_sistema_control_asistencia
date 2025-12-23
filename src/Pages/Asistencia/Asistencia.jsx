@@ -1,8 +1,6 @@
 import { useState } from "react";
-import ModalSuccess from "../../Components/Modales/ModalSuccess";
 import { useHoraActual } from "../../Hooks/Asistencia/HoraActual";
 import { useFechaActual } from "../../Hooks/Asistencia/DiaActual";
-import GlassModal from "../../Components/Modales/GlassModal";
 import AsistenciaSemanalModal from "../../Components/Modales/AsistenciaSemanalModal";
 import ModalCondicional from "../../Components/Modales/ModalCondicional";
 
