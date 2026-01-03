@@ -3,6 +3,11 @@ import { useHoraActual } from "../../Hooks/Asistencia/HoraActual";
 import { useFechaActual } from "../../Hooks/Asistencia/DiaActual";
 import AsistenciaSemanalModal from "../../Components/Modales/AsistenciaSemanalModal";
 import ModalCondicional from "../../Components/Modales/ModalCondicional";
+import { useNavigate } from "react-router-dom";
+import { LuNotebookPen } from "react-icons/lu";
+import Botones from "../../Components/Asistencia/Botones";
+import { MdOutlinePermPhoneMsg } from "react-icons/md";
+import { AiOutlineNotification } from "react-icons/ai";
 
 const Asistencia = () => {
   const horaActual = useHoraActual();
@@ -10,7 +15,8 @@ const Asistencia = () => {
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [modalMisAsistencias, setModalMisAsistencias] = useState(false); 
-
+  const navigate = useNavigate();
+  
   const handleClick = () => {
     // Aquí podrías registrar la asistencia
     setMostrarModal(true);
@@ -18,6 +24,14 @@ const Asistencia = () => {
 
   const handleMisAsistencias = () => {
     setModalMisAsistencias(true);
+  }
+
+  const handleMisPermisos = () => {
+    navigate("/permisos/lista-permisos");
+  }
+
+  const handleMisIncidencias = () => {
+    navigate("/permisos/lista-permisos");
   }
 
   return (
@@ -32,11 +46,28 @@ const Asistencia = () => {
 
       {/* Contenedor principal */}
       <div className="w-full h-full p-6 border border-gray-200 shadow-lg rounded-2xl bg-white flex flex-col items-center gap-6">
-       <div className="flex justify-end w-full">
-        {/* Botón Mis Asistencias */}
-        <button onClick={handleMisAsistencias} className="self-end bg-[#06B6D4] text-white font-semibold text-md px-5 py-3 rounded-2xl shadow-md hover:bg-[#059ab4] hover:scale-105 transition-transform">
-          Mis Asistencias
-        </button>
+       <div className="flex justify-end w-full gap-5">
+        {/* Botones */}        
+        <Botones
+          accion={handleMisAsistencias}
+          variante="primary"
+          icono={LuNotebookPen}
+          contenido="Mis Asistencias"
+        />
+
+        <Botones
+          accion={handleMisPermisos}
+          variante="primary"
+          icono={MdOutlinePermPhoneMsg }
+          contenido="Mis Permisos"
+        />
+
+        <Botones
+          accion={handleMisIncidencias}
+          variante="primary"
+          icono={AiOutlineNotification }
+          contenido="Mis Incidencias"
+        />
        </div>
 
         {/* Hora actual */}
